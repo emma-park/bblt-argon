@@ -1,20 +1,21 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Easing, Animated, Dimensions } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { Block } from "galio-framework";
+import PresetsContext from "../context/PresetsContext";
 
 // screens
 import Home from "../screens/Home";
-import Onboarding from "../screens/Onboarding";
+// import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
 import Elements from "../screens/Elements";
 import Articles from "../screens/Articles";
+import Brew from "../screens/BrewSetup";
 // drawer
 import CustomDrawerContent from "./Menu";
 
@@ -41,7 +42,7 @@ function ElementsStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
@@ -138,61 +139,75 @@ function ProfileStack(props) {
 }
 
 function HomeStack(props) {
+  const [presets, setPresets] = useState([]);
+  const updatePresets = () => setPresets({title:"New BBl T"});
   return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title="Home"
-              search
-              options
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
-        }}
-      />
-    </Stack.Navigator>
+    <PresetsContext.Provider
+      value={{
+        presets,
+        updatePresets
+      }}>
+      <Stack.Navigator mode="card" headerMode="screen">
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header
+                white
+                title="BBLT"
+                navigation={navigation}
+                scene={scene}
+                bgColor={argonTheme.COLORS.ACTIVE}
+                titleColor="white"
+                iconColor="white"
+              />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" }
+          }}
+        />
+      </Stack.Navigator>
+      <Stack.Navigator mode="card" headerMode="screen">
+        <Stack.Screen
+          name="Brew"
+          component={Brew}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header
+                white
+                title="Brew"
+                navigation={navigation}
+                scene={scene}
+                bgColor={argonTheme.COLORS.ACTIVE}
+                titleColor="white"
+                iconColor="white"
+              />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" }
+          }}
+        />
+      </Stack.Navigator>
+    </PresetsContext.Provider>
   );
 }
 
-export default function OnboardingStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="none">
-      <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
-        option={{
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen name="App" component={AppStack} />
-    </Stack.Navigator>
-  );
-}
 
-function AppStack(props) {
+// export default function OnboardingStack(props) {
+//   return (
+//     <Stack.Navigator mode="card" headerMode="none">
+//       <Stack.Screen
+//         name="Onboarding"
+//         component={Onboarding}
+//         option={{
+//           headerTransparent: true
+//         }}
+//       />
+//       <Stack.Screen name="App" component={AppStack} />
+//     </Stack.Navigator>
+//   );
+// }
+
+export default function AppStack(props) { // first main screen
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}

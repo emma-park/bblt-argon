@@ -22,7 +22,7 @@
     "@react-navigation/stack": "5.14.3",
     "@use-expo/font": "^2.0.0",
     "expo": "^42.0.0",
-    "expo-app-loading": "^1.0.1",
+    "expo-app-loading": "1.1.2",
     "expo-asset": "~8.3.2",
     "expo-font": "~9.2.1",
     "galio-framework": "^0.8.0",

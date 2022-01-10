@@ -13,6 +13,7 @@ const { height, width } = Dimensions.get("screen");
 import argonTheme from "../constants/Theme";
 import Images from "../constants/Images";
 
+/**original First page. Logo screen with a button at the bottom */
 class Onboarding extends React.Component {
   render() {
     const { navigation } = this.props;
